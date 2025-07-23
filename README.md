@@ -15,14 +15,8 @@ sql创建的用户密码为：12345678
 
 ### 前端
 
-主要运用阿里 Ant Design 生态：
-
-- HTML + CSS + JavaScript 三件套
-- React 开发框架
-- Ant Design Pro 项目模板
-- Ant Design 端组件库
-- Umi 开发框架
-- Umi Request 请求库
+前端主要用了ant design vue来实现 运用了ts，其实我觉得
+用js问题也不大，大差不差
 
 
 
