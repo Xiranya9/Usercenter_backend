@@ -10,6 +10,7 @@ import com.xiya.usercenter.model.domain.User;
 import com.xiya.usercenter.model.domain.request.UserLoginRequest;
 import com.xiya.usercenter.model.domain.request.UserRegisterRequest;
 import com.xiya.usercenter.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ import static com.xiya.usercenter.contant.UserConstant.USER_LOGIN_STATE;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Resource
@@ -52,6 +54,7 @@ public class UserController {
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, planetCode)) {
             return null;
         }
+
         long result = userService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         return ResultUtils.success(result);
     }
@@ -65,11 +68,15 @@ public class UserController {
      */
     @PostMapping("/login")
     public BaseResponse<User> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+        log.info("userLoginRequest:{}", userLoginRequest);
+        log.info("request:{}", request);
         if (userLoginRequest == null) {
             return ResultUtils.error(ErrorCode.PARAMS_ERROR);
         }
         String userAccount = userLoginRequest.getUserAccount();
+        log.info("处理后的userAccount:{}", userAccount);
         String userPassword = userLoginRequest.getUserPassword();
+
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             return ResultUtils.error(ErrorCode.PARAMS_ERROR);
         }
@@ -100,6 +107,7 @@ public class UserController {
      */
     @GetMapping("/current")
     public BaseResponse<User> getCurrentUser(HttpServletRequest request) {
+        log.info(String.valueOf(request));
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
         User currentUser = (User) userObj;
         if (currentUser == null) {

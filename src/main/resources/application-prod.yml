@@ -1,14 +1,14 @@
-# 线上配置文件
-spring:
-  # DataSource Config
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lili
-    username: s1313
-    password: l233313
-  # session 失效时间
-  session:
-    timeout: 86400
-server:
-  address: 0.0.0.0
-
+## 线上配置文件
+#spring:
+#  # DataSource Config
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/lili
+#    username: s1313
+#    password: l233313
+#  # session 失效时间
+#  session:
+#    timeout: 86400
+#server:
+#  address: 0.0.0.0
+#

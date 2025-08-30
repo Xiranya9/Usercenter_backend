@@ -111,6 +111,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         // 1. 校验
+        log.info("userAccount:{}", userAccount);
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             return null;
         }
@@ -128,11 +129,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         // 2. 加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
+        log.info("密码"+encryptPassword);
         // 查询用户是否存在
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userAccount", userAccount);
         queryWrapper.eq("userPassword", encryptPassword);
         User user = userMapper.selectOne(queryWrapper);
+        log.info("用户" + user);
         // 用户不存在
         if (user == null) {
             log.info("user login failed, userAccount cannot match userPassword");
